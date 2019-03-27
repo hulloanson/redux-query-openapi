@@ -1,0 +1,30 @@
+{
+  "name": "generator-redux-query-openapi",
+  "version": "0.1.0",
+  "description": "Attempt to generate redux-query config from OpenApi 3.* spec",
+  "files": [
+    "redux-query-openapi"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hulloanson/redux-query-openapi.git"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "redux-query",
+    "redux",
+    "openapi"
+  ],
+  "author": "hulloanson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hulloanson/redux-query-openapi/issues"
+  },
+  "homepage": "https://github.com/hulloanson/redux-query-openapi#readme",
+  "dependencies": {
+    "yeoman-generator": "^3.2.0"
+  }
+}
