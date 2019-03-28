@@ -25,10 +25,16 @@
   },
   "homepage": "https://github.com/hulloanson/redux-query-openapi#readme",
   "dependencies": {
+    "form-data": "^2.3.3",
+    "js-yaml": "^3.13.0",
+    "just-compose": "^1.1.0",
+    "node-fetch": "^2.3.0",
     "parse-path": "^4.0.1",
+    "wretch": "^1.5.1",
     "yeoman-generator": "^3.2.0"
   },
   "devDependencies": {
+    "mocha": "^6.0.2",
     "yo": "^2.0.5"
   }
 }

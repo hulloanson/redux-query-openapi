@@ -1,6 +1,15 @@
 const Generator = require("yeoman-generator");
 const path = require("path");
 const url = require("url");
+const fs = require("fs");
+const {
+  parsePath,
+  getNet,
+  getLocal,
+  parseSpec,
+  getSpecFile
+} = require("./lib");
+const compose = require("just-compose");
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -16,7 +25,7 @@ module.exports = class extends Generator {
         validate: specPath => {
           if (specPath === "") return "Please, input an url / path.";
           try {
-            this._parsePath(specPath);
+            parsePath(specPath);
           } catch (TypeError) {
             return "Not a valid path / url";
           }
@@ -26,28 +35,17 @@ module.exports = class extends Generator {
     ]);
   }
 
-  _parsePath(thePath) {
-    let res;
+  run() {
+    let spec;
     try {
-      res = url.parse(thePath, false, true);
-    } catch (TypeError) {
-      res = path.resolve(thePath);
+      spec = compose(
+        parseSpec,
+        getSpecFile,
+        parsePath
+      )(this.answers.specPath);
+    } catch (e) {
+      this.log("There was an error: ", e);
     }
-    if (res.hostname === null) {
-      res = path.resolve(thePath);
-    }
-    return res;
-  }
-
-  getSpecFile() {
-    let { specPath } = this.answers;
-    specPath = this._parsePath(specPath);
-  }
-
-  _meow() {
-    this.log("meow");
-  }
-  _nya() {
-    this.log("nya");
+    this.log(spec);
   }
 };
