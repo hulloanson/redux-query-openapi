@@ -95,7 +95,9 @@ const parsePath = thePath => {
 };
 
 module.exports = {
-  getSpecFile: getFileContent,
+  getFileContent,
   parseSpec,
-  parsePath
+  parsePath,
+  getLocal,
+  getNet
 };
