@@ -17,11 +17,11 @@ const yaml = require("js-yaml");
 const getFileContent = location => {
   const { protocol } = location;
   if (protocol.match(/^file:?/)) {
-    return getLocal(location.path);
+    return getLocal(url.fileURLToPath(location));
   } else if (protocol.match(/^https?:?/)) {
     return getNet(url.format(location));
   } else {
-    throw TypeError("Wrong source. Should be file, http or https");
+    throw new TypeError("Wrong source. Should be file, http or https");
   }
 };
 
@@ -82,12 +82,15 @@ const parsePath = thePath => {
   } catch (e) {
     err = e;
   }
-  if (res.hostname === null || err) {
+  if ((!res.hostname && res.protocol !== "file") || err) {
+    // Assume it's a local file
     res = path.resolve(thePath);
-    res = url.pathToFileURL(res);
+    res = url.parse(`file://${thePath}`);
   } else {
-    if (res.protocol !== null && !res.protocol.match(/^((https?)|file):?$/)) {
-      res.protocol = res.protocol || "http";
+    // Has an hostname. Must be a net resource.
+    if (res.protocol === null) res.protocol = "http";
+    // reject proctocol
+    else if (res.protocol.match(/^((https?)|file):?$/)) {
       throw new TypeError("Wrong source. Must be HTTP(S), or a local file.");
     }
   }

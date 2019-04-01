@@ -37,6 +37,9 @@ describe("lib helpers", () => {
       assert(actual.protocol.match(/^file:?$/));
       assert.equal(actual.path, "/home/meow/nyan.txt");
     });
+    it("should return a url object with procotcol http if none is given", () => {
+      const url = "//";
+    });
   });
   describe("getLocal", () => {
     it("should get a local file's content correctly", () => {
@@ -60,6 +63,11 @@ describe("lib helpers", () => {
   });
   describe("getNet", () => {
     // NEXT: find out how a mock server can be set up.
-    it("should ");
+    it("should get correct content through http(s)", () => {
+      const expected = "nya,nya!";
+      const actual = getNet(process.env.mockServerUrl);
+      assert.equal(expected, actual);
+    });
+    it("should default to ");
   });
 });
